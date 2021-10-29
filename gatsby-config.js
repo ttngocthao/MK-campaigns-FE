@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     siteUrl: "https://www.yourdomain.tld",
-    title: "Keen Dream Events",
+    title: "Mobkoi Campaigns",
   },
   plugins: [
     "gatsby-plugin-styled-components",
@@ -9,8 +9,8 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        name: "Keen Dream Events",
-        short_name: "KDream Events",
+        name: "Mobkoi Campaigns",
+        short_name: "Mobkoi",
         start_url: "/",
         background_color: "#222222",
         theme_color: "#222222",
@@ -19,13 +19,6 @@ module.exports = {
         display: "standalone",
         icon: "src/images/icon.png",
       },
-    },
-    {
-      resolve: "gatsby-plugin-anchor-links",
-      options: {
-        offset: -150,
-        duration: 2000
-      }
     },
     {
       resolve: `gatsby-source-filesystem`,
