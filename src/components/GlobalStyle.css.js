@@ -16,6 +16,7 @@ export default createGlobalStyle`
     h1{
         font-size: 2rem;
         max-width: 1200px;
-        margin:0 auto;
+        margin:0 auto 2rem;
+      
     }
 `;
