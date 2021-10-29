@@ -1,13 +1,11 @@
 {
-  "name": "keen-dream-events",
+  "name": "Mobkoi Ex",
   "version": "1.0.0",
   "private": true,
-  "description": "Keen Dream Events",
+  "description": "fullstack ex",
   "author": "ttngocthao",
   "keywords": [
-    "gatsby",
-    "mighty-cultured",
-    "events"
+    "gatsby"   
   ],
   "scripts": {
     "develop": "gatsby develop",
