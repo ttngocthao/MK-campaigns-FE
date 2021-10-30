@@ -7,6 +7,7 @@ import { Box } from "@mui/system";
 import TableLayout from "../components/table/TableLayout";
 import TileLayout from "../components/tile/TileLayout";
 import ViewToggleBtn from "../components/viewToggleBtn/ViewToggleBtn";
+import { constant } from "../constant";
 
 const IndexPage = () => {
   const [campaigns, setCampaigns] = useState(null);
@@ -20,7 +21,7 @@ const IndexPage = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/campaigns");
+        const res = await fetch(constant.dataUrl);
         const data = await res.json();
         setCampaigns(data);
 
@@ -33,8 +34,8 @@ const IndexPage = () => {
     getData();
   }, []);
 
-  const convertToDateStr = (no) => {
-    const fullStr = new Date(no).toUTCString();
+  const convertToDateStr = (numb) => {
+    const fullStr = new Date(numb).toUTCString();
     return fullStr.slice(5, 16);
   };
 
@@ -81,7 +82,7 @@ const IndexPage = () => {
         {isLoading ? (
           <Spinning />
         ) : view === "list" ? (
-          <TableLayout data={data} />
+          <TableLayout data={campaigns} />
         ) : (
           <TileLayout
             data={data}

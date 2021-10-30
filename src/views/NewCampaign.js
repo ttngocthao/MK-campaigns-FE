@@ -6,7 +6,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { Box, TextField, Alert, Snackbar } from "@mui/material";
 import WaitingLayout from "../components/spinning/WaitingLayout";
 import StyledButton from "../components/buttons/StyledButton";
-
+import { constant } from "../constant";
 const NewCampaign = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -47,7 +47,7 @@ const NewCampaign = () => {
         endDate: Date.parse(value[1]),
         targetImpressions: target,
       };
-      const res = await fetch("http://localhost:3001/api/campaigns", {
+      const res = await fetch(constant.dataUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
