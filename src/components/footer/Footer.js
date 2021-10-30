@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledFooter = styled.footer`
-  background-color: rgb(52 13 71);
+  background-color: #340d47;
   padding: 1rem;
   margin-top: 3rem;
   p {
@@ -21,8 +21,14 @@ const Footer = () => {
   return (
     <StyledFooter>
       <p>
-        <a href="https://my-page-thaotruong.netlify.app/">Thao Truong</a> -{" "}
-        <a href="mailto:ttngocthao_87@yahoo.com">ttngocthao_87@yahoo.com</a>
+        <a
+          rel="noreferrer"
+          href="https://my-page-thaotruong.netlify.app/"
+          target="_blank"
+        >
+          Thao Truong
+        </a>{" "}
+        - <a href="mailto:ttngocthao_87@yahoo.com">ttngocthao_87@yahoo.com</a>
       </p>
     </StyledFooter>
   );

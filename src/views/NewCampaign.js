@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 import DateRangePicker from "@mui/lab/DateRangePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { Box, TextField, Button, Alert, Snackbar } from "@mui/material";
+import { Box, TextField, Alert, Snackbar } from "@mui/material";
+import WaitingLayout from "../components/spinning/WaitingLayout";
+import StyledButton from "../components/buttons/StyledButton";
 
 const NewCampaign = () => {
-  const [snackbar, setSnackbar] = React.useState({
+  const [snackbar, setSnackbar] = useState({
     open: false,
     displayText: "",
     severity: "success",
   });
-  const [value, setValue] = React.useState([null, null]);
-  const [target, setTarget] = React.useState("");
+  const [value, setValue] = useState([null, null]);
+  const [target, setTarget] = useState("");
+  const [open, setOpen] = useState(false);
 
   const checkEmptyFields = () => {
     let errors = [];
@@ -25,7 +28,7 @@ const NewCampaign = () => {
             : { endDateErrMsg: "End date cannot be empty" },
         ];
       }
-      return;
+      return v;
     });
     if (target === "") {
       errors = [...errors, { targetErrMsg: "Target cannot be empty" }];
@@ -34,12 +37,11 @@ const NewCampaign = () => {
   };
 
   const clickHandle = async () => {
-    console.log("date", value);
-    value.map((v) => console.log(Date.parse(v)));
-    console.log("target", target);
     //check empty field
+
     const errors = checkEmptyFields();
     if (errors.length === 0) {
+      setOpen(true);
       const data = {
         startDate: Date.parse(value[0]),
         endDate: Date.parse(value[1]),
@@ -54,9 +56,10 @@ const NewCampaign = () => {
       });
       if (res.ok) {
         //reset form after submit
+        setOpen(false);
         setValue([null, null]);
         setTarget("");
-        console.log("success", res);
+        //  console.log("success", res);
         setSnackbar({
           ...snackbar,
           displayText: "Successfully added new campaign",
@@ -64,6 +67,7 @@ const NewCampaign = () => {
           open: true,
         });
       } else {
+        setOpen(false);
         console.log("error", res);
         setSnackbar({
           ...snackbar,
@@ -73,12 +77,21 @@ const NewCampaign = () => {
         });
       }
     }
+    if (errors.length !== 0) {
+      setSnackbar({
+        ...snackbar,
+        displayText: "Please fill all the inputs",
+        severity: "error",
+        open: true,
+      });
+    }
   };
 
   return (
     <Box>
       <Box sx={{ maxWidth: "465px", margin: "0 auto", p: 1 }}>
         <h1>Add new campaign</h1>
+
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateRangePicker
             startText="Start Date"
@@ -106,15 +119,7 @@ const NewCampaign = () => {
         />
         <br />
         <br />
-        <Button
-          sx={{ py: 2 }}
-          onClick={clickHandle}
-          variant="contained"
-          color="primary"
-          fullWidth
-        >
-          Add Campaign
-        </Button>
+        <StyledButton text="Add Campaign" clickHandle={clickHandle} />
       </Box>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -130,6 +135,7 @@ const NewCampaign = () => {
           {snackbar.displayText}
         </Alert>
       </Snackbar>
+      <WaitingLayout open={open} handleClose={() => setOpen(false)} />
     </Box>
   );
 };

@@ -16,9 +16,10 @@ const NavBar = styled.nav`
   justify-content: space-between;
   margin: 0 auto;
 `;
-const Logo = styled.figure`
+const Logo = styled.a`
   max-width: 150px;
   margin: 0.5rem 1rem;
+  display: block;
   img {
     width: 100%;
   }
@@ -28,7 +29,11 @@ const Header = () => {
   return (
     <StyledHeader>
       <NavBar>
-        <Logo>
+        <Logo
+          target="_blank"
+          aria-label="Mobkoi website"
+          href="https://www.mobkoi.com/"
+        >
           <img alt="" src={MobkoiLogo} />
         </Logo>
         <IconButton
