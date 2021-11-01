@@ -30,8 +30,12 @@ const NewCampaign = () => {
       }
       return v;
     });
+
     if (target === "") {
       errors = [...errors, { targetErrMsg: "Target cannot be empty" }];
+    }
+    if (target !== "" && isNaN(target)) {
+      errors = [...errors, { targetErrMsg: "Target must be a number" }];
     }
     return errors;
   };

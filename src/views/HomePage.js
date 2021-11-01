@@ -8,6 +8,7 @@ import TableLayout from "../components/table/TableLayout";
 import TileLayout from "../components/tile/TileLayout";
 import ViewToggleBtn from "../components/viewToggleBtn/ViewToggleBtn";
 import { constant } from "../constant";
+import { convertToDateStr } from "../util/displayDate";
 
 const IndexPage = () => {
   const [campaigns, setCampaigns] = useState(null);
@@ -34,11 +35,6 @@ const IndexPage = () => {
     getData();
   }, []);
 
-  const convertToDateStr = (numb) => {
-    const fullStr = new Date(numb).toUTCString();
-    return fullStr.slice(5, 16);
-  };
-
   const loadMoreHandle = () => {
     const totalItems = campaigns?.length;
     if (itemsShow < totalItems) {
@@ -59,6 +55,15 @@ const IndexPage = () => {
           endDate: convertToDateStr(i.endDate),
         };
       });
+  const dataTable =
+    campaigns &&
+    campaigns.map((i) => {
+      return {
+        ...i,
+        startDate: convertToDateStr(i.startDate),
+        endDate: convertToDateStr(i.endDate),
+      };
+    });
   return (
     <Box>
       <h1>Mobkoi - Campaigns</h1>
@@ -82,7 +87,7 @@ const IndexPage = () => {
         {isLoading ? (
           <Spinning />
         ) : view === "list" ? (
-          <TableLayout data={campaigns} />
+          <TableLayout data={dataTable} />
         ) : (
           <TileLayout
             data={data}
